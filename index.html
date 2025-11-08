@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precious Afram - GIS Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 w-full z-50 bg-white">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">Precious Afram</a>
+            <div class="space-x-6">
+                <a href="#home" class="text-gray-600 hover:text-blue-600">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600">About</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600">Services</a>
+                <a href="#resume" class="text-gray-600 hover:text-blue-600">Resume</a>
+                <a href="#portfolio" class="text-gray-600 hover:text-blue-600">Portfolio</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/ba/The_earth_at_night.jpg')">
+        <div class="text-center text-white">
+            <h1 class="text-5xl font-bold mb-4">I'm Precious Afram</h1>
+            <p class="text-2xl mb-2">GIS Analyst, Geographer, Remote Sensing Specialist</p>
+            <p class="text-xl mb-6">Based in Sunyani, Bono Region, Ghana</p>
+            <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">Hire Me</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-8">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <img src="https://www.shutterstock.com/image-photo/geographic-information-system-gis-army-260nw-1782616361.jpg" alt="Precious Afram" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2 md:pl-8">
+                    <h3 class="text-2xl font-semibold mb-4">I'm Precious Afram, a GIS Analyst</h3>
+                    <p class="text-gray-600 mb-4 text-justify">Recent graduate with a BA in Geography and Resource Development with Political Science from the University of Ghana. Expert in Geographic Information Systems (GIS), data visualization, spatial analysis, and remote sensing, with hands-on proficiency in QGIS, ArcMap, and Google Earth Engine (GEE) for mapping, satellite imagery processing, and environmental monitoring.</p>
+                    <p class="text-gray-600 mb-4 text-justify">Gained practical experience through internship and national service at the Forestry Services Division, honing strong analytical, problem-solving, and communication skills. Eager to apply geographic expertise to resource management, sustainable development, and policy-related roles.</p>
+                    <ul class="text-gray-600">
+                        <li><strong>Name:</strong> Precious Afram</li>
+                        <li><strong>Email:</strong> aframprecious3@gmail.com</li>
+                        <li><strong>From:</strong> Sunyani, Bono Region, Ghana</li>
+                    </ul>
+                    <a href="https://github.io/precious-afram/portfolio/blob/main/PRECIOUS_AFRAM_CV.pdf" download class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">Download CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-8">Services</h2>
+            <p class="text-center text-gray-600 mb-12">What I Do?</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold mb-4">GIS Mapping & Spatial Analysis</h3>
+                    <p class="text-gray-600">Creating detailed maps and performing spatial analyses using QGIS and ArcMap to support resource planning and decision-making.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold mb-4">Remote Sensing & Satellite Imagery</h3>
+                    <p class="text-gray-600">Utilizing Google Earth Engine for land use/land cover mapping, time-series analysis, and environmental monitoring.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold mb-4">Data Management & Visualization</h3>
+                    <p class="text-gray-600">Advanced data handling with Microsoft Excel, including cleaning, statistical analysis, and visualization for forestry and resource projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="section bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-8">Resume</h2>
+            <p class="text-center text-gray-600 mb-12">Summary</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">My Education</h3>
+                    <div class="mb-6 bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-xl font-medium mb-1">BA Geography and Resource Development with Political Science</h4>
+                        <p class="text-gray-500 mb-2">University of Ghana / 2021 - 2024</p>
+                        <p class="text-gray-600 text-justify">Graduated with Second Class Upper Division. Relevant Courses: Academic Writing I & II, Principles and Methods of Cartography, Public Administration, Remote Sensing, Geographic Information Systems (GIS), International Conflict & Conflict Resolution, Resource Analysis, Research Methods, Strategies of Development, International & Comparative Politics.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">My Experience</h3>
+                    <div class="mb-6 bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-xl font-medium mb-1">National Service Personnel</h4>
+                        <p class="text-gray-500 mb-2">Forestry Services Division, Sunyani / Sept 2024 – Aug 2025</p>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                            <li>Advanced data management using Microsoft Excel, including visualization, cleaning, statistical analysis, and report generation to support forestry projects.</li>
+                            <li>Leveraged Google Earth Engine (GEE) for detailed land use/land cover mapping, time-series analysis, change detection, and satellite imagery interpretation to monitor environmental trends.</li>
+                            <li>Performed in-depth spatial analyses and map creation with QGIS and ArcMap to inform resource planning and decision-making.</li>
+                            <li>Conducted field data collection with GPS devices, measuring land areas, plotting coordinates, and contributing to sustainable forest management initiatives.</li>
+                            <li>Collaborated on team-based projects applying political science insights to policy recommendations for resource development and conflict resolution in natural resource contexts.</li>
+                        </ul>
+                    </div>
+                    <div class="mb-6 bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-xl font-medium mb-1">Intern</h4>
+                        <p class="text-gray-500 mb-2">Forestry Services Division, Sunyani / Feb 2024 – May 2024</p>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                            <li>Utilized Microsoft Excel for data visualization, data cleaning, and basic mathematical calculations.</li>
+                            <li>Employed Google Earth Engine (GEE) for creating land use and land cover maps, generating time series charts, and visualizing satellite imagery.</li>
+                            <li>Utilized GIS tools (QGIS and ArcMap) for creating maps and conducting spatial analysis.</li>
+                            <li>Used GPS devices for collecting geographic coordinates and measuring land areas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold mb-6 text-center">My Skills</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-lg font-semibold mb-2">QGIS</h4>
+                        <p class="text-gray-600 text-sm">Proficient in spatial analysis, mapping, and data visualization for GIS projects.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-lg font-semibold mb-2">ArcMap</h4>
+                        <p class="text-gray-600 text-sm">Proficient in creating maps and conducting in-depth spatial analyses.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-lg font-semibold mb-2">Google Earth Engine</h4>
+                        <p class="text-gray-600 text-sm">Familiar with satellite imagery processing, land use mapping, and time-series analysis.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-lg font-semibold mb-2">Microsoft Excel</h4>
+                        <p class="text-gray-600 text-sm">Advanced data management, including cleaning, visualization, and statistical analysis.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-lg font-semibold mb-2">Spatial Analysis</h4>
+                        <p class="text-gray-600 text-sm">Strong skills in analyzing geographic data to inform resource planning and decision-making.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <h4 class="text-lg font-semibold mb-2">Remote Sensing</h4>
+                        <p class="text-gray-600 text-sm">Expert in interpreting satellite imagery for environmental monitoring and change detection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-8">Portfolio</h2>
+            <p class="text-center text-gray-600 mb-12">My Work</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://dataexpertise.in/wp-content/uploads/2023/12/GIS-Meaning-and-Importance-1.jpg" alt="Project 1" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold">Land Use Mapping</h3>
+                        <p class="text-gray-600">GIS Analysis</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://gisgeography.com/wp-content/uploads/2015/11/What-Is-Remote-Sensing-1.jpg" alt="Project 2" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold">Satellite Imagery Analysis</h3>
+                        <p class="text-gray-600">Remote Sensing</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://nimbo.earth/wp-content/uploads/2025/10/nusantara-atlas-platform-1.jpg" alt="Project 3" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold">Forest Monitoring</h3>
+                        <p class="text-gray-600">Environmental GIS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-8">Get in Touch</h2>
+            <p class="text-center text-gray-600 mb-12">Contact</p>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Address</h3>
+                    <p class="text-gray-600 mb-4">Sunyani, Bono Region, Ghana</p>
+                    <p class="text-gray-600 mb-2">Phone: +233 541 562 319</p>
+                    <p class="text-gray-600 mb-2">Phone: +233 241 866 785</p>
+                    <p class="text-gray-600">Email: aframprecious3@gmail.com</p>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Send a Message</h3>
+                    <div>
+                        <input type="text" placeholder="Name" class="w-full p-3 mb-4 border rounded-lg">
+                        <input type="email" placeholder="Email" class="w-full p-3 mb-4 border rounded-lg">
+                        <textarea placeholder="Message" class="w-full p-3 mb-4 border rounded-lg h-32"></textarea>
+                        <button class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
