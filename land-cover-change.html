@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Cover Change Analysis in Asunafo North Municipality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 py-12">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <a href="index.html" class="text-blue-600 hover:underline mb-8 inline-block text-lg">&larr; Back to Landing Page</a>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-center mb-12">Land Cover Change Analysis in Asunafo North Municipality<br><span class="text-2xl md:text-3xl font-normal text-gray-700">Using Remote Sensing (2013–2023)</span></h1>
+        
+        <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
+            <h2 class="text-3xl font-semibold mb-6">Project Overview</h2>
+            <p class="text-gray-600 leading-relaxed text-lg">This project tracks land cover changes over a ten-year period in Asunafo North Municipality, Ghana. Key classes analyzed: Closed Forest, Open Forest (farmlands, grasslands, shrubs, etc.), Urban, Water, and Bare Land. The study highlights deforestation, agricultural expansion, and urbanization trends to support conservation, planning, and sustainable development using GIS and remote sensing tools.</p>
+        </section>
+        
+        <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
+            <h2 class="text-3xl font-semibold mb-6">Objectives</h2>
+            <ul class="list-disc pl-8 text-gray-600 space-y-3 text-lg">
+                <li>Classify land cover from Landsat satellite data for 2013, 2017, and 2023.</li>
+                <li>Calculate area and percentage for each class.</li>
+                <li>Quantify changes over the study period.</li>
+                <li>Visualize results with maps and charts.</li>
+            </ul>
+        </section>
+        
+        <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
+            <h2 class="text-3xl font-semibold mb-6">Data & Methodology</h2>
+            <p class="text-gray-600 leading-relaxed text-lg mb-6">USGS Landsat 8 Level-2 surface reflectance data processed in Google Earth Engine (cloud cover <10%). Supervised classification performed with Random Forest algorithm. Classified rasters exported to QGIS for mapping and area calculation; statistics computed in Excel.</p>
+            <p class="text-gray-600 font-medium">Key tools: Google Earth Engine (JavaScript), QGIS, Microsoft Excel.</p>
+        </section>
+        
+        <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
+            <h2 class="text-3xl font-semibold mb-8">Results</h2>
+            
+            <h3 class="text-2xl font-semibold mb-6">Land Cover Maps</h3>
+
+<div class="space-y-16">
+    <div class="text-center">
+        <p class="text-sm text-gray-500 font-semibold mb-2">2013</p>
+        <img src="ASUNAFO NORTH 2013.png" alt="Land Cover Map 2013" class="max-w-xl mx-auto rounded-lg shadow-md">
+    </div>
+    
+    <div class="text-center">
+        <p class="text-sm text-gray-500 font-semibold mb-2">2017</p>
+        <img src="ASUNAFO NORTH 2017.png" alt="Land Cover Map 2017" class="max-w-xl mx-auto rounded-lg shadow-md">
+    </div>
+    
+    <div class="text-center">
+        <p class="text-sm text-gray-500 font-semibold mb-2">2023</p>
+        <img src="ASUNAFO NORTH 2023.png" alt="Land Cover Map 2023" class="max-w-xl mx-auto rounded-lg shadow-md">
+    </div>
+</div>
+        
+
+<div class="space-y-12">
+            <h3 class="text-2xl font-semibold mb-6">Statistics</h3>
+
+    <div class="text-center">
+        <p class="text-sm text-gray-500 font-semibold mb-2">Area statistics in hectors and percentages</p>
+        <img src="stats_table_image.png" alt="Land Cover Change Detection" class="max-w-4xl mx-auto block mb-12 rounded-lg shadow-md">
+    </div>
+
+    <div class="text-center">
+        <p class="text-sm text-gray-500 font-semibold mb-2">Area Statistics Bar Chart</p>
+        <img src="Stats_chart1.PNG" alt="Land Cover Change Detection" class="max-w-4xl mx-auto block mb-12 rounded-lg shadow-md">
+    </div>
+
+    <div class="text-center">
+        <p class="text-sm text-gray-500 font-semibold mb-2">Change Detection Statistics</p>
+        <img src="change_table_image.png" alt="Land Cover Change Detection" class="max-w-4xl mx-auto block mb-12 rounded-lg shadow-md">
+    </div>
+</div>
+            
+          
+            
+    
+        </section>
+        
+        <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
+            <h2 class="text-3xl font-semibold mb-6">Key Insights</h2>
+            <p class="text-gray-600 leading-relaxed text-lg">Rapid urbanization and expansion of open forest/agriculture observed. Significant closed forest loss raises biodiversity and carbon sequestration concerns. Results underscore the need for stronger land-use policies in the municipality.</p>
+        </section>
+        
+        <section class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-3xl font-semibold mb-6">Skills Demonstrated</h2>
+            <ul class="list-disc pl-8 text-gray-600 space-y-3 text-lg">
+                <li>Remote sensing & image classification (Google Earth Engine – JavaScript/Python)</li>
+                <li>Spatial analysis & cartography (QGIS)</li>
+                <li>Statistical analysis & visualization (Excel)</li>
+                <li>Change detection & post-classification comparison</li>
+            </ul>
+            <p class="text-gray-600 mt-4">This entry in my portfolio showcases my ability to apply GIS techniques to real-world environmental challenges, delivering actionable insights through clear, data-driven narratives.</p>
+        </section>
+    </div>
+</body>
+</html>
