@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Precious Afram — GIS Analyst & Remote Sensing Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest:  #1a3d2b;
+      --canopy:  #2d6a4f;
+      --leaf:    #52b788;
+      --pale:    #d8f3dc;
+      --sand:    #f8f4ee;
+      --ink:     #1a1a18;
+      --mid:     #4a4a44;
+      --rule:    #c8c0b0;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--sand);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ──────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .3s, box-shadow .3s;
+    }
+    .nav.scrolled {
+      background: rgba(26,61,43,.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,.25);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: .03em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--leaf); }
+
+    /* Mobile menu */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      transition: all .3s;
+    }
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      inset: 64px 0 0;
+      background: var(--forest);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      transition: color .2s;
+    }
+    .nav-mobile a:hover { color: var(--leaf); }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--forest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Atmospheric grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(82,183,136,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(82,183,136,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    /* Radial glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(82,183,136,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 120px 32px 80px;
+    }
+    .hero-eyebrow {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--leaf);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp .8s .2s forwards;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp .8s .4s forwards;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--leaf);
+      display: block;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,.7);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp .8s .6s forwards;
+    }
+    .hero-location {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,.45);
+      letter-spacing: .1em;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp .8s .7s forwards;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s .9s forwards;
+    }
+    .btn-primary {
+      background: var(--leaf);
+      color: var(--forest);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn-primary:hover { background: var(--pale); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.3);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--leaf); color: var(--leaf); transform: translateY(-2px); }
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.3);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      animation: bounce 2s 2s infinite;
+    }
+    .scroll-hint svg { opacity: .4; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── SECTION SHARED ──────────────────────────── */
+    .section { padding: 96px 0; }
+    .section-alt { background: var(--white); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-label {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--canopy);
+      margin-bottom: 12px;
+    }
+    h2.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.15;
+    }
+    .section-rule {
+      width: 48px; height: 3px;
+      background: var(--leaf);
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ───────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .about-photo-wrap { position: relative; }
+    .about-photo-wrap img {
+      width: 260px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .about-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 12px;
+      width: 260px; height: 320px;
+      border: 2px solid var(--leaf);
+      border-radius: 6px;
+      z-index: 0;
+    }
+    .about-eyebrow {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--canopy);
+      margin-bottom: 12px;
+    }
+    .about h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .about p { color: var(--mid); margin-bottom: 16px; }
+    .about-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 28px 0 32px;
+      padding: 24px;
+      background: var(--sand);
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+    }
+    .detail-item { font-size: 14px; }
+    .detail-key {
+      font-weight: 700;
+      color: var(--forest);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .detail-val { color: var(--mid); }
+    .btn-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--forest);
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn-dl:hover { background: var(--canopy); transform: translateY(-2px); }
+
+    /* ── SERVICES ────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--canopy);
+      border-radius: 6px;
+      padding: 36px 28px;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .service-card:hover {
+      box-shadow: 0 16px 48px rgba(26,61,43,.12);
+      transform: translateY(-4px);
+    }
+    .service-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 12px;
+    }
+    .service-card p { color: var(--mid); font-size: 15px; }
+
+    /* ── RESUME ──────────────────────────────────── */
+    .resume-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .resume-col-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .resume-col-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 2px;
+      background: var(--pale);
+    }
+    .timeline-item { position: relative; margin-bottom: 36px; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--canopy);
+      border: 2px solid var(--pale);
+    }
+    .timeline-date {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 11px;
+      color: var(--canopy);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 2px;
+    }
+    .timeline-org {
+      font-size: 13px;
+      color: var(--mid);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .timeline-bullets {
+      list-style: none;
+      padding: 0;
+    }
+    .timeline-bullets li {
+      font-size: 14px;
+      color: var(--mid);
+      padding: 5px 0 5px 18px;
+      position: relative;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.55;
+    }
+    .timeline-bullets li:last-child { border-bottom: none; }
+    .timeline-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--leaf);
+      font-size: 12px;
+      top: 7px;
+    }
+    .timeline-note {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* Skills */
+    .skills-section { margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--rule); }
+    .skills-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--forest);
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .skills-grid-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--sand);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 20px 20px 16px;
+      transition: border-color .2s, background .2s;
+    }
+    .skill-card:hover { border-color: var(--canopy); background: var(--pale); }
+    .skill-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 6px;
+    }
+    .skill-desc { font-size: 13px; color: var(--mid); }
+
+    /* ── PORTFOLIO ───────────────────────────────── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .project-card:hover {
+      box-shadow: 0 20px 60px rgba(26,61,43,.18);
+      transform: translateY(-6px);
+    }
+    .project-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .project-card:hover .project-card-img { transform: scale(1.04); }
+    .project-card-img-wrap { overflow: hidden; }
+    .project-card-body { padding: 24px; }
+    .project-card-tag {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--canopy);
+      margin-bottom: 8px;
+    }
+    .project-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .project-card-sub { font-size: 14px; color: var(--mid); margin-bottom: 16px; }
+    .project-card-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--canopy);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      transition: gap .2s;
+    }
+    .project-card:hover .project-card-arrow { gap: 12px; }
+
+    /* ── CONTACT ─────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 16px;
+    }
+    .contact-info p { color: var(--mid); margin-bottom: 32px; }
+    .contact-details { list-style: none; }
+    .contact-details li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .contact-details li:last-child { border-bottom: none; }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: var(--pale);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-detail-key {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--canopy);
+      display: block;
+      margin-bottom: 3px;
+    }
+    .contact-detail-val {
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .contact-detail-val a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-detail-val a:hover { color: var(--canopy); }
+
+    /* Form */
+    .contact-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 28px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--forest);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 15px;
+      color: var(--ink);
+      background: var(--white);
+      transition: border-color .2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--canopy); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .btn-submit {
+      background: var(--forest);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      width: 100%;
+    }
+    .btn-submit:hover { background: var(--canopy); transform: translateY(-2px); }
+    .form-note { font-size: 13px; color: var(--mid); margin-top: 12px; text-align: center; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.45);
+      text-align: center;
+      padding: 36px 32px;
+      font-size: 13px;
+    }
+    .footer a { color: var(--leaf); text-decoration: none; }
+    .footer-inner { max-width: 600px; margin: 0 auto; }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 8px;
+    }
+
+    /* ── FADE IN ─────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo-wrap img { width: 200px; height: 250px; }
+      .about-photo-wrap::before { width: 200px; height: 250px; }
+      .resume-cols { grid-template-columns: 1fr; gap: 48px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .container { padding: 0 24px; }
+      .section { padding: 72px 0; }
+      .about-details { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav" id="nav">
+  <a href="#home" class="nav-logo">Precious Afram</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="navMobile">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#resume" class="mobile-link">Resume</a>
+  <a href="#portfolio" class="mobile-link">Portfolio</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">GIS Analyst · Geographer · Remote Sensing Specialist</div>
+    <h1>Precious<em>Afram</em></h1>
+    <p class="hero-sub">Mapping landscapes. Analysing change. Informing decisions.</p>
+    <p class="hero-location">📍 Ghana, West Africa</p>
+    <div class="hero-ctas">
+      <a href="#portfolio" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section section-alt">
+  <div class="container">
+    <div class="about-grid fade-in">
+      <div class="about-photo-wrap">
+        <img src="Image.jpeg" alt="Precious Afram">
+      </div>
+      <div class="about">
+        <div class="about-eyebrow">About Me</div>
+        <h3>GIS Analyst &amp; Remote Sensing Specialist</h3>
+        <p>I'm a Geography and GIS graduate from the University of Ghana with hands-on experience in spatial analysis, land cover mapping, field data collection, and environmental monitoring. My work sits at the intersection of satellite technology and real-world conservation challenges.</p>
+        <p>I gained practical experience at the Forestry Services Division in Sunyani, where I used Google Earth Engine, QGIS, ArcMap, and GPS devices to support forest management decisions. I'm particularly passionate about applying geospatial tools to sustainable development, resource management, and environmental policy.</p>
+        <div class="about-details">
+          <div class="detail-item">
+            <span class="detail-key">Name</span>
+            <span class="detail-val">Precious Afram</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-key">Email</span>
+            <span class="detail-val">aframprecious3@gmail.com</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-key">Phone</span>
+            <span class="detail-val">+233 541 562 319</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-key">Location</span>
+            <span class="detail-val">Ghana, West Africa</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-key">Degree</span>
+            <span class="detail-val">BA Geography &amp; Political Science</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-key">Languages</span>
+            <span class="detail-val">English · Twi</span>
+          </div>
+        </div>
+        <a href="PRECIOUS AFRAM CV.pdf" download class="btn-dl">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">What I Do</div>
+      <h2 class="section-title">Services</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="services-grid fade-in">
+      <div class="service-card">
+        <span class="service-icon">🗺️</span>
+        <h3>GIS Mapping &amp; Spatial Analysis</h3>
+        <p>Creating detailed maps and performing spatial analyses using QGIS and ArcMap to support resource planning, environmental monitoring, and decision-making for forestry and land management projects.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛰️</span>
+        <h3>Remote Sensing &amp; Satellite Imagery</h3>
+        <p>Processing and interpreting Landsat and other satellite imagery using Google Earth Engine for land use/land cover mapping, time-series analysis, change detection, and environmental monitoring.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📍</span>
+        <h3>Field Data Collection &amp; GPS Surveys</h3>
+        <p>Conducting GPS-based field surveys to measure land areas, plot coordinates, collect geographic data, and ground-truth remote sensing outputs in rural and forest settings.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📊</span>
+        <h3>Data Management &amp; Visualisation</h3>
+        <p>Advanced data handling with Microsoft Excel, including cleaning, statistical analysis, chart generation, and reporting to communicate environmental findings clearly to technical and non-technical audiences.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌿</span>
+        <h3>Environmental Monitoring</h3>
+        <p>Monitoring deforestation, land cover change, and vegetation health using multi-temporal satellite imagery and NDVI analysis to support conservation and sustainable forest management programmes.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📋</span>
+        <h3>Science Communication &amp; Reporting</h3>
+        <p>Translating complex spatial and environmental data into clear, actionable reports, policy briefs, and visual summaries for decision-makers, planners, and community stakeholders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume" class="section section-alt">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">My Background</div>
+      <h2 class="section-title">Resume</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="resume-cols fade-in">
+
+      <!-- Education -->
+      <div>
+        <div class="resume-col-title">Education</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2021 – 2024</div>
+            <div class="timeline-title">BA Geography &amp; Resource Development with Political Science</div>
+            <div class="timeline-org">University of Ghana, Legon · Second Class Upper Division</div>
+            <p class="timeline-note">Relevant courses: Remote Sensing · Geographic Information Systems · Principles &amp; Methods of Cartography · Resource Analysis · Research Methods · Strategies of Development · International Conflict &amp; Conflict Resolution · Public Administration</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2017 – 2020</div>
+            <div class="timeline-title">General Arts — WASSCE</div>
+            <div class="timeline-org">Sumaman Senior High School, Suma-Ahenkro, Bono Region</div>
+            <p class="timeline-note">Elective subjects: Geography · History · Government · Economics</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div>
+        <div class="resume-col-title">Experience</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">Oct 2024 – Aug 2025</div>
+            <div class="timeline-title">National Service Personnel</div>
+            <div class="timeline-org">Forestry Services Division, Sunyani, Bono Region</div>
+            <ul class="timeline-bullets">
+              <li>Used Google Earth Engine for land use/land cover mapping, time-series analysis, change detection, and satellite imagery interpretation.</li>
+              <li>Performed spatial analyses and produced maps with QGIS and ArcMap to inform resource planning.</li>
+              <li>Conducted GPS-based field surveys across forest sites, measuring land areas and plotting coordinates.</li>
+              <li>Managed and visualised environmental datasets in Excel, producing statistical analyses and reports.</li>
+              <li>Contributed to policy recommendations on resource development and conflict resolution.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Feb 2024 – May 2024</div>
+            <div class="timeline-title">Intern</div>
+            <div class="timeline-org">Forestry Services Division, Sunyani, Bono Region</div>
+            <ul class="timeline-bullets">
+              <li>Created land use and land cover maps and time-series charts using Google Earth Engine.</li>
+              <li>Conducted GPS data collection in the field, gathering coordinates and measuring land areas.</li>
+              <li>Produced maps and spatial analyses with QGIS and ArcMap; cleaned data in Excel.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="skills-section fade-in">
+      <div class="skills-section-title">Technical Skills</div>
+      <div class="skills-grid-wrap">
+        <div class="skill-card">
+          <div class="skill-name">QGIS</div>
+          <div class="skill-desc">Spatial analysis, mapping, cartographic design, and area calculation.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">ArcMap</div>
+          <div class="skill-desc">In-depth spatial analysis, raster processing, and map production.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">Google Earth Engine</div>
+          <div class="skill-desc">Satellite imagery processing, LULC mapping, NDVI analysis, and time-series analysis using JavaScript.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">GPS Field Surveys</div>
+          <div class="skill-desc">Field data collection, coordinate plotting, and land area measurement in remote settings.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">Microsoft Excel</div>
+          <div class="skill-desc">Advanced data management, statistical analysis, visualisation, and reporting.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">Remote Sensing</div>
+          <div class="skill-desc">Change detection, image classification, NDVI analysis, and environmental monitoring.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">My Work</div>
+      <h2 class="section-title">Portfolio</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="portfolio-grid fade-in">
+
+      <a href="land-cover-change.html" class="project-card">
+        <div class="project-card-img-wrap">
+          <img src="ASUNAFO NORTH.png" alt="Asunafo North Land Cover Change" class="project-card-img">
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tag">Remote Sensing · GEE · QGIS</div>
+          <div class="project-card-title">Land Cover Change Analysis in Asunafo North Municipality</div>
+          <div class="project-card-sub">Multi-temporal Landsat 8 analysis using Random Forest classification across three epochs (2013–2023).</div>
+          <span class="project-card-arrow">
+            View Project
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="berekum-land-cover.html" class="project-card">
+        <div class="project-card-img-wrap">
+          <img src="Classified_Berekum.png" alt="Berekum Land Cover Change" class="project-card-img">
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tag">Remote Sensing · ArcMap · Multi-sensor</div>
+          <div class="project-card-title">Land Cover Change Analysis in Berekum Municipality</div>
+          <div class="project-card-sub">Dual-sensor Landsat analysis (2002–2022) with NDVI change detection, supervised classification, and 16-category transition matrix.</div>
+          <span class="project-card-arrow">
+            View Project
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="contact-grid fade-in">
+
+      <div class="contact-info">
+        <h3>Let's Work Together</h3>
+        <p>Whether you have a project in mind, a role to discuss, or just want to connect — I'd love to hear from you. I'm open to opportunities in GIS analysis, remote sensing, field data collection, and environmental research.</p>
+        <ul class="contact-details">
+          <li>
+            <div class="contact-icon">📧</div>
+            <div>
+              <span class="contact-detail-key">Email</span>
+              <span class="contact-detail-val"><a href="mailto:aframprecious3@gmail.com">aframprecious3@gmail.com</a></span>
+            </div>
+          </li>
+          <li>
+            <div class="contact-icon">📱</div>
+            <div>
+              <span class="contact-detail-key">Phone</span>
+              <span class="contact-detail-val">+233 541 562 319 &nbsp;/&nbsp; +233 241 866 785</span>
+            </div>
+          </li>
+          <li>
+            <div class="contact-icon">📍</div>
+            <div>
+              <span class="contact-detail-key">Location</span>
+              <span class="contact-detail-val">Ghana, West Africa</span>
+            </div>
+          </li>
+          <li>
+            <div class="contact-icon">🌐</div>
+            <div>
+              <span class="contact-detail-key">Portfolio</span>
+              <span class="contact-detail-val"><a href="https://precious-afram.github.io/portfolio/" target="_blank">precious-afram.github.io/portfolio</a></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <form action="https://formspree.io/f/xovyqzbd" method="POST">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Precious Afram" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project or opportunity…" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+          <p class="form-note">I'll get back to you as soon as possible.</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-name">Precious Afram</div>
+    <p>GIS Analyst · Remote Sensing Specialist · Ghana, West Africa</p>
+    <p style="margin-top:8px;"><a href="mailto:aframprecious3@gmail.com">aframprecious3@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+  // Start scrolled if page loads mid-way
+  if (window.scrollY > 80) nav.classList.add('scrolled');
+
+  // Mobile menu
+  const toggle = document.getElementById('navToggle');
+  const mobile = document.getElementById('navMobile');
+  toggle.addEventListener('click', () => mobile.classList.toggle('open'));
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => mobile.classList.remove('open'));
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
