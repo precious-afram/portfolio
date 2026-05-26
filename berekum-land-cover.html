@@ -542,7 +542,6 @@
     <div class="hero-meta">
       <span class="tag">Landsat 7 &amp; 8</span>
       <span class="tag">ArcMap 10.8</span>
-      <span class="tag">Google Earth Engine</span>
       <span class="tag">2002 – 2022</span>
     </div>
   </div>
@@ -610,7 +609,7 @@
           </div>
           <div class="info-row">
             <span class="info-key">Software</span>
-            <span class="info-val">ArcMap 10.8 · GEE · Excel</span>
+            <span class="info-val">ArcMap 10.8 · Excel</span>
           </div>
           <div class="info-row">
             <span class="info-key">Coordinate System</span>
@@ -637,25 +636,20 @@
       <div class="step">
         <div class="step-num">02</div>
         <h3>Image Pre-processing</h3>
-        <p>Both scenes were reprojected to <code>WGS 1984 UTM Zone 30N</code>. Raw DN values were converted to surface reflectance using USGS Collection 2 coefficients: <code>ρ = 0.0000275 × DN − 0.2</code>. Dark Object Subtraction was additionally applied to remove residual atmospheric path radiance.</p>
+        <p>Both scenes were reprojected to <code>WGS 1984 UTM Zone 30N</code>. Raw DN values were converted to surface reflectance using USGS Collection 2 coefficients: <code>ρ = 0.0000275 × DN − 0.2.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <h3>Spectral Profile Analysis</h3>
-        <p>Mean surface reflectance profiles were extracted for four land cover classes across all seven OLI bands. Builtups and Farmlands converge almost completely in SWIR-1 (Δ = 0.0005) but diverge most in SWIR-2 (Δ = 0.077), informing the use of NDBI for urban separation.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
         <h3>NDVI Calculation &amp; Zoning</h3>
         <p>NDVI = <code>(NIR − Red) / (NIR + Red)</code> was computed for both epochs. Three vegetation zones were delineated: Healthy (&gt;0.50), Sparse/Stressed (0.25–0.50), and Non-Vegetated (&lt;0.25).</p>
       </div>
       <div class="step">
-        <div class="step-num">05</div>
+        <div class="step-num">04</div>
         <h3>Statistical Change Detection</h3>
         <p>The NDVI difference image (ΔNDVI = NDVI<sub>2022</sub> − NDVI<sub>2002</sub>) used a statistically grounded threshold of <code>μ ± 2σ</code> (Hu et al., 2004), yielding change boundaries at −0.2311 and +0.1517, anchored to the empirical distribution rather than an arbitrary value.</p>
       </div>
       <div class="step">
-        <div class="step-num">06</div>
+        <div class="step-num">05</div>
         <h3>Supervised Classification &amp; Transition Matrix</h3>
         <p>Maximum Likelihood Classification produced four-class land cover maps for both epochs. A pixel-by-pixel post-classification overlay generated a 16-category transition matrix quantifying every class-to-class conversion, including the taungya-driven Farmlands → Closed Vegetation pathway.</p>
       </div>
@@ -668,7 +662,7 @@
   <div class="container fade-in">
     <div class="section-label">Results — NDVI Analysis</div>
     <h2>Vegetation Health: 2002 vs 2022</h2>
-    <p>Comparing the two NDVI zone maps makes the transformation immediately visible. In 2002 the municipality was overwhelmingly green — dominated by Healthy Vegetation. By 2022, yellow (Sparse/Stressed) and red (Non-Vegetated) patches have expanded significantly, particularly in the north and centre.</p>
+    <p>Comparing the two NDVI zone maps makes the transformation immediately visible. In 2002 the municipality was overwhelmingly green — dominated by Healthy Vegetation. By 2022, yellow (Sparse/Stressed) and red (Non-Vegetated) patches have expanded significantly.</p>
 
     <div class="map-pair">
       <div class="map-card">
@@ -750,7 +744,7 @@
   <div class="container fade-in">
     <div class="section-label">Results — Land Cover Classification</div>
     <h2>What the Land Is Being Used For</h2>
-    <p>Supervised Maximum Likelihood Classification was applied independently to both images, producing four land cover classes. Side-by-side comparison reveals the dramatic northward and central spread of farmland (orange) and the fragmentation of open vegetation (yellow), while the built-up core (red) around Berekum town has more than tripled in footprint.</p>
+    <p>Supervised Maximum Likelihood Classification was applied independently to both images, producing four land cover classes. Side-by-side comparison reveals the dramatic northward and central spread of farmland (brown) and the fragmentation of open vegetation (yellow), while the built-up core (red) around Berekum town has more than tripled in footprint.</p>
 
     <div class="map-single">
       <img src="Classified_Berekum.png" alt="Land Cover Classification Maps 2002 and 2022" loading="lazy">
@@ -818,7 +812,7 @@
   <div class="container fade-in">
     <div class="section-label">Results — Change Detection</div>
     <h2>Every Transition, Mapped</h2>
-    <p>The post-classification change map uses 16 distinct colours to show every class-to-class transition. Of the total 862.34 km², some <strong>470.92 km² (54.6%)</strong> remained stable. The two dominant transitions tell the story of the landscape: open woodland converted to farmland, and farmed plots within the forest reserve maturing back to closed canopy under the taungya system.</p>
+    <p>The post-classification change map uses 16 distinct colours to show every class-to-class transition. Of the total 862.34 km², some <strong>470.92 km² (54.6%)</strong> remained stable. The two dominant transitions tell the story of the landscape: open vegetation converted to farmland, and farmed plots within the forest reserve maturing back to closed canopy under the taungya system.</p>
 
     <div class="map-single">
       <img src="ChangeMap.png" alt="Land Cover Change Map" loading="lazy">
@@ -896,11 +890,11 @@
   <div class="container fade-in">
     <div class="section-label">Science Communication</div>
     <h2>From Satellite Data to Policy</h2>
-    <p style="margin-bottom:36px;">A core output of this analysis was translating complex remote sensing findings into actionable guidance for a non-technical audience — the Member of Parliament for Berekum.</p>
+    <p style="margin-bottom:36px;">A core output of this analysis was translating complex remote sensing findings into actionable guidance for a non-technical audience.</p>
     <div class="policy-brief">
       <div class="label">Policy Brief</div>
       <h2>Berekum Municipal Land Cover Change, 2002–2022</h2>
-      <div class="addressee">To: Hon. Dickson Kyere-Duah, Member of Parliament, Berekum</div>
+      </div>
       <p>Satellite analysis reveals a landscape undergoing rapid and significant transformation over the past twenty years. Built-up areas have expanded by over 250 percent — from approximately 16 km² to nearly 56 km² — reflecting sustained population growth and urban expansion. Farmland has increased by approximately 60 km², largely at the expense of open woodland and shrubland, which declined by nearly 58 km².</p>
       <p>Healthy, closed vegetation cover decreased from around 439 km² to 399 km² — a loss that represents a meaningful reduction in the municipality's intact forest estate. On a positive note, a meaningful area of farmland within the forest reserves has transitioned back to closed vegetation, indicating that the rotational taungya farming system is functioning as intended.</p>
       <div class="policy-recs">
@@ -930,7 +924,6 @@
       <span class="skill-chip">Multi-temporal Landsat Analysis</span>
       <span class="skill-chip">Cross-sensor Calibration</span>
       <span class="skill-chip">DN-to-Reflectance Conversion</span>
-      <span class="skill-chip">Dark Object Subtraction (DOS)</span>
       <span class="skill-chip">Spectral Profile Interpretation</span>
       <span class="skill-chip">NDVI Calculation</span>
       <span class="skill-chip">Statistical Change Thresholding (μ ± 2σ)</span>
@@ -938,7 +931,6 @@
       <span class="skill-chip">Post-Classification Change Detection</span>
       <span class="skill-chip">Land Cover Transition Matrix</span>
       <span class="skill-chip">ArcMap 10.8</span>
-      <span class="skill-chip">Google Earth Engine</span>
       <span class="skill-chip">QGIS</span>
       <span class="skill-chip">Microsoft Excel</span>
       <span class="skill-chip">Cartographic Design</span>
