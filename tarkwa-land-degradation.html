@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Land Degradation & Reclamation Assessment — Tarkwa-Nsuaem | Precious Afram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest:  #1a3d2b;
+      --canopy:  #2d6a4f;
+      --leaf:    #52b788;
+      --pale:    #d8f3dc;
+      --sand:    #f8f4ee;
+      --ink:     #1a1a18;
+      --mid:     #4a4a44;
+      --rule:    #c8c0b0;
+      --danger:  #c1121f;
+      --caution: #e9a800;
+      --mining:  #7b4a1a;
+      --mining-light: #f5e6d3;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--sand);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      background: var(--forest);
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      overflow: hidden;
+    }
+    .hero-text {
+      padding: 70px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-text::after {
+      content: '';
+      position: absolute;
+      right: -40px; top: 0; bottom: 0; width: 80px;
+      background: var(--forest);
+      clip-path: polygon(0 0, 0% 100%, 100% 50%);
+      z-index: 2;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--leaf);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      transition: gap .2s;
+    }
+    .back-link:hover { gap: 14px; }
+    .eyebrow {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--leaf);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 900;
+      line-height: 1.12;
+      margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: normal; color: var(--leaf); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .tag {
+      background: rgba(82,183,136,.15);
+      border: 1px solid rgba(82,183,136,.35);
+      color: var(--leaf);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    .hero-image { position: relative; overflow: hidden; }
+    .hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      opacity: .75; display: block;
+    }
+    .hero-image-caption {
+      position: absolute; bottom: 16px; right: 16px;
+      font-size: 11px; color: rgba(255,255,255,.65); font-style: italic;
+    }
+
+    /* ── STATS BAR ───────────────────────────────── */
+    .stats-bar {
+      background: var(--canopy); color: #fff;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      text-align: center;
+      border-bottom: 3px solid var(--leaf);
+    }
+    .stat-item { padding: 24px 12px; border-right: 1px solid rgba(255,255,255,.15); }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px; font-weight: 700;
+      color: var(--pale); display: block; line-height: 1;
+    }
+    .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; opacity: .75; margin-top: 6px; }
+
+    /* ── LAYOUT ──────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    section { padding: 72px 0; }
+    section + section { border-top: 1px solid var(--rule); }
+    .section-label {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 11px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--canopy); margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 36px); font-weight: 700;
+      line-height: 1.2; margin-bottom: 24px; color: var(--forest);
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--forest); margin-bottom: 12px;
+    }
+    p { margin-bottom: 16px; color: var(--mid); }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── OVERVIEW ────────────────────────────────── */
+    .overview-grid {
+      display: grid; grid-template-columns: 3fr 2fr;
+      gap: 60px; align-items: start;
+    }
+    .info-card {
+      background: #fff; border: 1px solid var(--rule);
+      border-top: 3px solid var(--canopy); border-radius: 4px; padding: 28px;
+    }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 14px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-key {
+      font-weight: 600; color: var(--forest);
+      text-transform: uppercase; font-size: 11px;
+      letter-spacing: .08em; flex-shrink: 0;
+    }
+    .info-val { color: var(--mid); text-align: right; margin-left: 12px; }
+
+
+
+    /* ── METHODOLOGY ─────────────────────────────── */
+    .method-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; margin-top: 36px;
+    }
+    .step {
+      background: #fff; border: 1px solid var(--rule);
+      border-radius: 4px; padding: 24px; position: relative;
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px; font-weight: 900;
+      color: var(--pale); line-height: 1;
+      position: absolute; top: 16px; right: 20px;
+    }
+    .step h3 { font-size: 15px; margin-bottom: 8px; position: relative; z-index: 1; }
+    .step p { font-size: 14px; }
+    .step code {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px; background: var(--pale);
+      color: var(--canopy); padding: 2px 7px; border-radius: 3px;
+    }
+
+    /* ── MAP CARDS ───────────────────────────────── */
+    .map-single {
+      background: #fff; border: 1px solid var(--rule);
+      border-radius: 6px; overflow: hidden;
+      margin-bottom: 32px; transition: box-shadow .25s;
+    }
+    .map-single:hover { box-shadow: 0 12px 40px rgba(26,61,43,.15); }
+    .map-single img { width: 100%; display: block; cursor: zoom-in; }
+    .map-caption {
+      padding: 14px 20px; font-size: 13px;
+      color: var(--mid); border-top: 1px solid var(--rule); line-height: 1.5;
+    }
+    .map-caption strong {
+      display: block; color: var(--forest);
+      font-weight: 600; margin-bottom: 3px;
+    }
+
+    /* ── TABLES ──────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin: 24px 0 32px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      background: var(--forest); color: #fff; text-align: left;
+      padding: 11px 14px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 11px; letter-spacing: .06em;
+      text-transform: uppercase; font-weight: 400;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--rule); color: var(--mid); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #faf8f4; }
+    tr.total-row td {
+      background: var(--pale); font-weight: 700;
+      color: var(--forest); border-top: 2px solid var(--canopy);
+    }
+    tr.highlight td { background: #fff3cd; font-weight: 700; }
+    .change-neg { color: var(--danger); font-weight: 700; }
+    .change-pos { color: var(--canopy); font-weight: 700; }
+    .ratio-bad  { color: var(--danger); font-weight: 700; font-size: 15px; }
+
+    /* ── FINDINGS ────────────────────────────────── */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px; margin-top: 32px;
+    }
+    .finding {
+      background: #fff; border: 1px solid var(--rule);
+      border-left: 4px solid var(--canopy);
+      border-radius: 0 6px 6px 0;
+      padding: 24px 24px 24px 28px;
+    }
+    .finding.danger  { border-left-color: var(--danger); }
+    .finding.caution { border-left-color: var(--caution); }
+    .finding.mining  { border-left-color: var(--mining); }
+    .finding-icon { font-size: 28px; margin-bottom: 12px; }
+    .finding h3 { font-size: 17px; margin-bottom: 8px; }
+    .finding p  { font-size: 14px; }
+
+    /* ── RECLAMATION CALLOUT ─────────────────────── */
+    .reclamation-callout {
+      background: var(--danger);
+      color: #fff;
+      border-radius: 8px;
+      padding: 40px 48px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .reclamation-callout .big-ratio {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .reclamation-callout p {
+      color: rgba(255,255,255,.9);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .reclamation-callout .sub {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+      margin-top: 12px;
+    }
+
+    /* ── SKILLS ──────────────────────────────────── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .skill-chip {
+      background: #fff; border: 1px solid var(--rule);
+      color: var(--forest); font-size: 13px; font-weight: 600;
+      padding: 7px 16px; border-radius: 24px;
+      transition: background .2s, border-color .2s;
+    }
+    .skill-chip:hover { background: var(--pale); border-color: var(--canopy); }
+
+    /* ── LIGHTBOX ────────────────────────────────── */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,16,12,.92); z-index: 9999;
+      align-items: center; justify-content: center;
+      cursor: zoom-out; padding: 24px;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 100%; max-height: 90vh;
+      object-fit: contain; border-radius: 4px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+    }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      font-size: 32px; color: rgba(255,255,255,.7); cursor: pointer;
+    }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .footer {
+      background: var(--ink); color: rgba(255,255,255,.5);
+      text-align: center; padding: 32px; font-size: 13px;
+    }
+    .footer a { color: var(--leaf); text-decoration: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 240px; }
+      .hero-text { padding: 48px 28px 40px; }
+      .hero-text::after { display: none; }
+      .stats-bar { grid-template-columns: repeat(3, 1fr); }
+      .overview-grid { grid-template-columns: 1fr; gap: 32px; }
+      .reclamation-callout { padding: 32px 24px; }
+      .reclamation-callout .big-ratio { font-size: 56px; }
+      .container { padding: 0 20px; }
+    }
+
+    /* ── FADE-IN ─────────────────────────────────── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-text">
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Portfolio
+    </a>
+    <div class="eyebrow">Land Degradation · Mining Reclamation · GEE · LULC · NDVI</div>
+    <h1>Mining-Induced Land Degradation &amp; Restoration Assessment —<br><em>Tarkwa-Nsuaem Municipality</em></h1>
+    <div class="hero-meta">
+      <span class="tag">Landsat 7 &amp; 8 &amp; 9</span>
+      <span class="tag">Google Earth Engine</span>
+      <span class="tag">QGIS</span>
+      <span class="tag">2000 – 2026</span>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="LULC_MAP.jpeg" alt="LULC maps of Tarkwa-Nsuaem Municipality 2000–2026">
+    <span class="hero-image-caption">LULC Classification Maps — 2000, 2010, 2020 &amp; 2026</span>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-number">26 yrs</span>
+    <div class="stat-label">Study period</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">161.5%</span>
+    <div class="stat-label">Barelands expansion</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">3.78:1</span>
+    <div class="stat-label">Degradation-to-recovery ratio</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">99.5%+</span>
+    <div class="stat-label">Classification accuracy</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">4</span>
+    <div class="stat-label">Time points classified</div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section>
+  <div class="container">
+    <div class="overview-grid fade-in">
+      <div>
+        <div class="section-label">Project Overview</div>
+        <h2>26 Years of Mining-Induced Land Degradation</h2>
+        <p>This study provides a systematic, multi-temporal satellite assessment of land degradation and restoration evidence in Tarkwa-Nsuaem Municipality, Western Region of Ghana — one of West Africa's most intensively mined local government areas. Using Landsat imagery processed on Google Earth Engine, the study tracks land cover change and vegetation dynamics across four time points (2000, 2010, 2020, and 2026), covering the full arc from early large-scale mining expansion through peak production to the current reclamation phase.</p>
+
+        <p>The analysis operates at two spatial scales: the full municipal boundary and, critically, the dissolved licensed mining concession boundary obtained from the Ghana Mining Repository. This dual-scale approach enables a direct empirical assessment of whether restoration activities within formally licensed mining areas are keeping pace with ongoing land disturbance — a question with direct implications for enforcement of Ghana's Minerals and Mining Act 2006 (Act 703).</p>
+        <p>Both Goldfields Ghana Limited (Tarkwa and Damang Mines) and AngloGold Ashanti (Iduapriem Mine) operate within the study area, alongside extensive artisanal and small-scale mining (Galamsey) activity that is visible but not formally bounded in satellite imagery.</p>
+      </div>
+      <div>
+        <div class="info-card">
+          <div class="info-row">
+            <span class="info-key">Study Area</span>
+            <span class="info-val">Tarkwa-Nsuaem Municipality, Ghana</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Total Area</span>
+            <span class="info-val">90,500.58 ha (1,682 km²)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Time Points</span>
+            <span class="info-val">2000 · 2010 · 2020 · 2026</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Imagery</span>
+            <span class="info-val">Landsat 7 ETM+ · 8 OLI · 9 OLI-2</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Resolution</span>
+            <span class="info-val">30 m × 30 m</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Classifier</span>
+            <span class="info-val">Random Forest (5 classes)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Software</span>
+            <span class="info-val">Google Earth Engine · QGIS</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Concession Data</span>
+            <span class="info-val">Ghana Mining Repository (NRGI)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">CRS</span>
+            <span class="info-val">WGS 1984 UTM Zone 30N</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDY AREA -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Study Area</div>
+    <h2>Tarkwa-Nsuaem Municipality — Ghana's Most Intensively Mined District</h2>
+    <p>Located in the Western Region of Ghana within the Birimian greenstone belt — the principal gold-bearing geological formation in the country — Tarkwa-Nsuaem Municipality has been the centre of Ghana's gold mining industry for over a century. The municipality's 1,682 km² encompasses some of West Africa's largest open-pit gold mines, extensive artisanal mining networks, moist semi-deciduous forest reserves, and the communities that live and farm alongside all of them.</p>
+    <div class="map-single">
+      <img src="Study_Area_MAP.jpeg" alt="Study area map of Tarkwa-Nsuaem Municipality" loading="lazy">
+      <div class="map-caption">
+        <strong>Study Area — Tarkwa-Nsuaem Municipality, Western Region, Ghana</strong>
+        Major settlements, road network, and forest reserves within the municipal boundary. Inset maps show the municipality's location within the Western Region and Ghana. Coordinate system: WGS 1984 UTM Zone 30N.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Methodology</div>
+    <h2>A Rigorous Multi-Temporal Remote Sensing Pipeline</h2>
+    <p>All data acquisition, processing, classification, and index computation were performed in Google Earth Engine, with cartographic production and area statistics in QGIS. The mining concession overlay from the Ghana Mining Repository is what sets this methodology apart — it enables a compliance-focused analysis, not just a landscape description.</p>
+    <div class="method-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Multi-Sensor Data Acquisition</h3>
+        <p>Landsat Collection 2 Level-2 surface reflectance imagery was used across all four time points: <code>Landsat 7 ETM+</code> for 2000 and 2010, <code>Landsat 8 OLI</code> for 2020, and merged Landsat 8/9 for 2026. Both Tier 1 and Tier 2 scenes were merged for Landsat 7 to maximise scene availability.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Cloud Masking &amp; Radiometric Scaling</h3>
+        <p>Pixels flagged as cloud (bit 3), cloud shadow (bit 4), or dilated cloud (bit 1) in the <code>QA_PIXEL</code> band were masked using the CFmask algorithm. Optical bands were rescaled using USGS Collection 2 factors: <code>DN × 0.0000275 − 0.2</code>. Band standardisation was applied across sensors for temporal consistency.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Median Composite Generation</h3>
+        <p>A pixel-wise <code>median composite</code> was computed for each target year from all available cloud-masked scenes, producing clean, representative surface reflectance images robust to residual cloud artefacts. Each composite was clipped to the municipal boundary.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Random Forest Classification</h3>
+        <p>Supervised classification was performed using <code>ee.Classifier.smileRandomForest()</code> with six input bands (Blue, Green, Red, NIR, SWIR-1, SWIR-2) and five classes: Builtups, Dense Forest, Open Forest, Barelands, and Water. Training samples were collected independently for each time point.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <h3>NDVI Analysis</h3>
+        <p>NDVI = <code>(NIR − Red) / (NIR + Red)</code> was computed for all four epochs and reclassified into three vegetation condition zones: Dense Vegetation (&gt;0.50), Sparse Vegetation (0.25–0.50), and Non-Vegetated (&lt;0.25). NDVI difference images were classified using the <code>mean ± 1 SD</code> method.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <h3>Mining Concession Overlay &amp; Reclamation Analysis</h3>
+        <p>Mining concession boundaries from the <code>Ghana Mining Repository</code> were dissolved into a single polygon. All outputs were clipped to this boundary to isolate mining-specific dynamics. Reclamation evidence was defined as Barelands → vegetation transitions within the concession, compared against new degradation (vegetation → Barelands) to produce a degradation-to-recovery ratio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LULC RESULTS -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Results — Land Cover Classification</div>
+    <h2>A Landscape Transformed by Mining</h2>
+    <p>The four classified maps reveal a clear and progressive transformation: Barelands expanding outward from the northern mining concession zone with each successive time point, while Open Forest contracts and Dense Forest shows a deceptive apparent recovery in undisturbed southern areas that masks continued degradation within the concessions themselves.</p>
+    <div class="map-single">
+      <img src="LULC_MAP.jpeg" alt="LULC classification maps 2000 2010 2020 2026" loading="lazy">
+      <div class="map-caption">
+        <strong>Land Use Land Cover Classification Maps — Tarkwa-Nsuaem Municipality (2000, 2010, 2020, 2026)</strong>
+        Random Forest classification · 5 classes · 30 m resolution · Blue outline: Licensed Mining Concession boundary (Ghana Mining Repository). All four maps use identical class colours for direct temporal comparison.
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px; margin-bottom: 16px;">LULC Area Statistics — Full Municipal Area</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>2000 (ha)</th>
+            <th>2000 (%)</th>
+            <th>2010 (ha)</th>
+            <th>2020 (ha)</th>
+            <th>2026 (ha)</th>
+            <th>2026 (%)</th>
+            <th>Net Change (ha)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Builtups</td>
+            <td>987.39</td><td>1.09%</td>
+            <td>1,019.12</td><td>2,400.39</td><td>2,775.24</td><td>3.07%</td>
+            <td class="change-neg">+1,787.85</td>
+          </tr>
+          <tr>
+            <td>Dense Forest</td>
+            <td>29,189.34</td><td>32.25%</td>
+            <td>24,458.58</td><td>28,115.82</td><td>30,823.02</td><td>34.06%</td>
+            <td class="change-pos">+1,633.68 *</td>
+          </tr>
+          <tr>
+            <td>Open Forest</td>
+            <td>54,940.59</td><td>60.71%</td>
+            <td>60,064.42</td><td>52,329.06</td><td>42,981.03</td><td>47.49%</td>
+            <td class="change-neg">−11,959.56</td>
+          </tr>
+          <tr class="highlight">
+            <td><strong>Barelands</strong></td>
+            <td><strong>5,208.21</strong></td><td><strong>5.75%</strong></td>
+            <td><strong>4,616.73</strong></td><td><strong>7,359.48</strong></td><td><strong>13,621.41</strong></td><td><strong>15.05%</strong></td>
+            <td class="change-neg"><strong>+8,413.20 (+161.5%)</strong></td>
+          </tr>
+          <tr>
+            <td>Water</td>
+            <td>175.05</td><td>0.19%</td>
+            <td>341.73</td><td>295.83</td><td>299.88</td><td>0.33%</td>
+            <td>+124.83</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td>90,500.58</td><td>100%</td>
+            <td>90,500.58</td><td>90,500.58</td><td>90,500.58</td><td>100%</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:var(--mid); margin-top: -16px;">* Apparent Dense Forest recovery at municipal scale is driven entirely by natural succession <em>outside</em> the mining concession boundary, not by restoration activity. See Section 4.3 of the full report.</p>
+  </div>
+</section>
+
+<!-- CHANGE DETECTION -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Results — Change Detection</div>
+    <h2>Mapping Every Transition Across Four Time Points</h2>
+    <p>The LULC change detection maps show every class-to-class transition across three inter-period intervals and the full net study period. The progressive spread of red (Open Forest → Barelands and Dense Forest → Barelands) from the northern concession zone across all four panels is the clearest visual evidence of accelerating land degradation — with the 2020→2026 panel showing the most severe single-period expansion of degraded land in the entire study.</p>
+    <div class="map-single">
+      <img src="CHANGE_DETECTION_MAP.jpeg" alt="LULC change detection maps" loading="lazy">
+      <div class="map-caption">
+        <strong>LULC Change Detection Maps — Three Inter-Period Intervals and Full Net Study Period</strong>
+        Post-classification comparison approach · Transition raster formula: (Earlier LULC × 10) + Later LULC · Blue outline: Licensed Mining Concession boundary
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NDVI -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Results — NDVI Analysis</div>
+    <h2>Vegetation Health: A Steadily Deteriorating Picture</h2>
+    <p>The NDVI classified maps provide independent spectral confirmation of the LULC findings. Non-Vegetated and Sparse Vegetation expand progressively across all four time points, concentrated within and radiating outward from the licensed concession zones in the north. Dense Vegetation declined from 95.98% of the municipal area in 2000 to 87.39% by 2026 — a net loss of 7,804 ha of healthy vegetation cover.</p>
+    <div class="map-single">
+      <img src="NDVI_MAP1.jpeg" alt="NDVI classified maps 2000 2010 2020 2026" loading="lazy">
+      <div class="map-caption">
+        <strong>NDVI Vegetation Condition Maps — Tarkwa-Nsuaem Municipality (2000, 2010, 2020, 2026)</strong>
+        Thresholds: Non-Vegetated &lt;0.25 · Sparse Vegetation 0.25–0.50 · Dense Vegetation &gt;0.50. Identical thresholds applied across all four epochs for temporal comparability.
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px; margin-bottom: 16px;">NDVI Difference Maps — Direction and Magnitude of Vegetation Change</h3>
+    <p>The NDVI difference maps classify vegetation change using statistically derived thresholds (mean ± 1 SD), distinguishing significant Decline (red), No Change (yellow), and Recovery (green) across each inter-period interval. The dominance of yellow confirms broad landscape stability in non-mined areas, while the red patches concentrated within and around the concession boundary confirm the persistence and acceleration of vegetation loss in mining zones.</p>
+    <div class="map-single">
+      <img src="NDVI_DIFF_MAP.jpeg" alt="NDVI difference maps" loading="lazy">
+      <div class="map-caption">
+        <strong>NDVI Difference Maps — Three Inter-Period Intervals and Net Study Period (2000–2026)</strong>
+        Classification method: Mean ± 1 Standard Deviation · Red = Decline · Yellow = No Significant Change · Green = Recovery · Blue outline: Licensed Mining Concession boundary
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECLAMATION -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Results — Reclamation Evidence</div>
+    <h2>Is Restoration Keeping Pace with Degradation?</h2>
+    <p>The central policy question of this study is whether mining companies are reclaiming disturbed land at a rate commensurate with the scale of ongoing disturbance. Reclamation evidence was defined as any transition from Barelands to Open Forest or Dense Forest within the licensed concession boundary between consecutive time points, quantified and compared against new degradation (any vegetation class transitioning to Barelands) in the same period.</p>
+
+    <div class="reclamation-callout">
+      <span class="big-ratio">3.78 : 1</span>
+      <p>For every hectare of vegetation recovery recorded within the licensed concession boundary over 26 years, approximately <strong>3.78 hectares</strong> of vegetated land were converted to bare ground.</p>
+      <p class="sub">Degradation-to-recovery ratio, 2000–2026 · Independently corroborated by NDVI difference analysis (decline-to-recovery ratio: 2.45:1 within concessions)</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Recovery — Barelands → Vegetation (ha)</th>
+            <th>Degradation — Vegetation → Barelands (ha)</th>
+            <th>Net (ha)</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2000 → 2010</td>
+            <td class="change-pos">2,195.64</td>
+            <td class="change-neg">2,349.72</td>
+            <td class="change-neg">−154.08</td>
+            <td>1.07 : 1</td>
+          </tr>
+          <tr>
+            <td>2010 → 2020</td>
+            <td class="change-pos">802.44</td>
+            <td class="change-neg">3,498.75</td>
+            <td class="change-neg">−2,696.31</td>
+            <td class="ratio-bad">4.36 : 1</td>
+          </tr>
+          <tr>
+            <td>2020 → 2026</td>
+            <td class="change-pos">1,550.25</td>
+            <td class="change-neg">4,088.52</td>
+            <td class="change-neg">−2,538.27</td>
+            <td class="ratio-bad">2.64 : 1</td>
+          </tr>
+          <tr class="total-row">
+            <td>2000 → 2026 (Net)</td>
+            <td>1,855.35</td>
+            <td>7,017.93</td>
+            <td class="change-neg">−5,162.58</td>
+            <td class="ratio-bad">3.78 : 1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:var(--mid);">Recovery = Barelands → Open Forest + Barelands → Dense Forest within licensed concession boundary. Degradation = Open Forest → Barelands + Dense Forest → Barelands within licensed concession boundary.</p>
+  </div>
+</section>
+
+<!-- KEY FINDINGS -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Interpretation</div>
+    <h2>Key Findings</h2>
+    <div class="findings-grid">
+      <div class="finding danger">
+        <div class="finding-icon">📈</div>
+        <h3>Accelerating Barelands Expansion</h3>
+        <p>Barelands grew by 161.5% across the municipality over 26 years — from 5,208 ha (5.75%) in 2000 to 13,621 ha (15.05%) in 2026. Critically, the rate of expansion accelerated in every successive period, reaching its highest annual rate of approximately 1,044 ha/year in 2020–2026.</p>
+      </div>
+      <div class="finding danger">
+        <div class="finding-icon">🌲</div>
+        <h3>Continuous Forest Loss Within Concessions</h3>
+        <p>Dense Forest within the licensed concession boundary declined continuously across all four time points — from 34.42% (12,843 ha) in 2000 to 23.80% (8,880 ha) in 2026. Unlike the broader municipality, Dense Forest within concessions showed zero recovery at any time point.</p>
+      </div>
+      <div class="finding caution">
+        <div class="finding-icon">⚠️</div>
+        <h3>Misleading Municipality-Wide Recovery Signal</h3>
+        <p>Apparent Dense Forest recovery at the municipal scale (2010–2026) is entirely attributable to natural succession in undisturbed southern areas outside the concession boundary — not to any reclamation activity. The concession-specific analysis removes this artefact.</p>
+      </div>
+      <div class="finding mining">
+        <div class="finding-icon">⛏️</div>
+        <h3>Galamsey Extends Degradation Beyond Concessions</h3>
+        <p>The progressive spread of Barelands and low-NDVI signatures beyond the formal concession boundary across all time points confirms that unlicensed artisanal mining (Galamsey) contributes substantially to landscape-scale degradation that falls outside the regulatory framework.</p>
+      </div>
+      <div class="finding danger">
+        <div class="finding-icon">📉</div>
+        <h3>Reclamation Wholly Inadequate</h3>
+        <p>The 3.78:1 degradation-to-recovery ratio within licensed concessions — confirmed independently by NDVI temporal difference analysis (2.45:1) — constitutes direct empirical evidence that land restoration obligations under Ghana's Minerals and Mining Act 2006 (Act 703) are not being met.</p>
+      </div>
+      <div class="finding">
+        <div class="finding-icon">🛰️</div>
+        <h3>GEE Methodology Is Replicable Nationally</h3>
+        <p>With Overall Accuracy exceeding 99.5% and Kappa coefficients above 0.994 at all four time points, the Google Earth Engine workflow demonstrated in this study provides a robust, low-cost, and directly replicable template for satellite-based reclamation monitoring across all Ghanaian mining districts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <div class="container fade-in">
+    <div class="section-label">Skills Demonstrated</div>
+    <h2>Technical &amp; Research Competencies</h2>
+    <div class="skills-grid">
+      <span class="skill-chip">Multi-temporal Landsat Analysis</span>
+      <span class="skill-chip">Google Earth Engine (JavaScript)</span>
+      <span class="skill-chip">Random Forest Classification</span>
+      <span class="skill-chip">Cloud Masking (CFmask / QA_PIXEL)</span>
+      <span class="skill-chip">Median Composite Generation</span>
+      <span class="skill-chip">Cross-sensor Band Standardisation</span>
+      <span class="skill-chip">NDVI Analysis</span>
+      <span class="skill-chip">NDVI Temporal Difference (μ ± 1SD)</span>
+      <span class="skill-chip">Post-Classification Change Detection</span>
+      <span class="skill-chip">LULC Transition Matrix</span>
+      <span class="skill-chip">Mining Concession Overlay</span>
+      <span class="skill-chip">Reclamation Evidence Quantification</span>
+      <span class="skill-chip">QGIS</span>
+      <span class="skill-chip">Accuracy Assessment (Kappa / Confusion Matrix)</span>
+      <span class="skill-chip">Cartographic Design</span>
+      <span class="skill-chip">Policy &amp; Environmental Compliance Analysis</span>
+      <span class="skill-chip">Science Communication</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2025 Precious Afram · GIS Analyst &amp; Remote Sensing Specialist · <a href="mailto:aframprecious3@gmail.com">aframprecious3@gmail.com</a></p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lbClose">&times;</span>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('.map-single img').forEach(img => {
+    img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('active'); });
+  });
+  document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('active'));
+  lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('active'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('active'); });
+</script>
+</body>
+</html>
